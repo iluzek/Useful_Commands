@@ -1,0 +1,5 @@
+Downloading best quality audio/video formatted and named playlists:
+
+youtube-dl -o "%(playlist_index)s-%(title)s.%(ext)s" "PLAYLIST_LINK" -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' -c --playlist-start 1
+
+youtube-dl -o "%(playlist_index)s-%(title)s.%(ext)s" ""PLAYLIST_LINK" " -f 'bestvideo+bestaudio/best' --playlist-start 1 -c
