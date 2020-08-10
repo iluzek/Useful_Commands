@@ -1,0 +1,85 @@
+https://ata.wiki.kernel.org/index.php/ATA_Secure_Erase
+https://www.thomas-krenn.com/en/wiki/Perform_a_SSD_Secure_Erase
+
+Step 1: NOT Frozen
+
+In the first step, check if the SSD is in the not frozen state and support SSD Secure Erase (supported: enhanced erase):
+
+root@ubuntu-10-04:~# hdparm -I /dev/sdb
+
+/dev/sdb:
+
+ATA device, with non-removable media
+	Model Number:       INTEL SSDSA2M160G2GC                    
+	Serial Number:      CVPO014602FC160AGN  
+	Firmware Revision:  2CV102HD
+	Transport:          Serial, ATA8-AST, SATA 1.0a, SATA II Extensions, SATA Rev 2.5, SATA Rev 2.6
+[...]
+Security: 
+	Master password revision code = 65534
+		supported
+	not	enabled
+	not	locked
+	not	frozen
+	not	expired: security count
+		supported: enhanced erase
+	2min for SECURITY ERASE UNIT. 2min for ENHANCED SECURITY ERASE UNIT.
+[...]
+
+Step 2: Set the User Passwords
+
+So that you can execute a secure erase, you must first define a user password. In the example, we have used the password, Eins. The security feature will be enable thereafter.
+
+Warning: If you set the user password, the SSD will entire the locked state after re-booting. The SSD will then block all normal access until it is re-locked with the correct password. However, if you perform the additional steps completely (without re-booting), the security feature will be automatically deactivated.
+
+root@ubuntu-10-04:~# hdparm --user-master u --security-set-pass Eins /dev/sdb
+security_password="Eins"
+
+/dev/sdb:
+ Issuing SECURITY_SET_PASS command, password="Eins", user=user, mode=high
+root@ubuntu-10-04:~# hdparm -I /dev/sdb
+[...]
+Security: 
+	Master password revision code = 65534
+		supported
+		enabled
+	not	locked
+	not	frozen
+	not	expired: security count
+		supported: enhanced erase
+	Security level high
+	2min for SECURITY ERASE UNIT. 2min for ENHANCED SECURITY ERASE UNIT.
+[...]
+
+Step 3: Secure Erase
+
+Now, execute the secure erase procedure:
+
+root@ubuntu-10-04:~# time hdparm --user-master u --security-erase Eins /dev/sdb
+security_password="Eins"
+
+/dev/sdb:
+ Issuing SECURITY_ERASE command, password="Eins", user=user
+
+real	0m55.408s
+user	0m0.000s
+sys	0m0.000s
+root@ubuntu-10-04:~# 
+
+Step 4: Checking
+
+After the secure erase procedure has completed, the SSD security feature will be disabled.
+
+root@ubuntu-10-04:~# hdparm -I /dev/sdb
+[...]
+Security: 
+	Master password revision code = 65534
+		supported
+	not	enabled
+	not	locked
+	not	frozen
+	not	expired: security count
+		supported: enhanced erase
+	2min for SECURITY ERASE UNIT. 2min for ENHANCED SECURITY ERASE UNIT.
+[...]
+
