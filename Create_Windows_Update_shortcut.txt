@@ -1,0 +1,4 @@
+Create Windows shortcut.
+Path for the url:
+
+ms-settings:windowsupdate
