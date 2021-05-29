@@ -26,11 +26,15 @@ Security:
 	2min for SECURITY ERASE UNIT. 2min for ENHANCED SECURITY ERASE UNIT.
 [...]
 
+Step 1.5 If Frozen, try putting PC into Sleep or Hybernation. This should set SSD to NOT FROZEN'
+
 Step 2: Set the User Passwords
 
 So that you can execute a secure erase, you must first define a user password. In the example, we have used the password, Eins. The security feature will be enable thereafter.
 
 Warning: If you set the user password, the SSD will entire the locked state after re-booting. The SSD will then block all normal access until it is re-locked with the correct password. However, if you perform the additional steps completely (without re-booting), the security feature will be automatically deactivated.
+
+hdparm --user-master u --security-set-pass password /dev/sdb
 
 root@ubuntu-10-04:~# hdparm --user-master u --security-set-pass Eins /dev/sdb
 security_password="Eins"
