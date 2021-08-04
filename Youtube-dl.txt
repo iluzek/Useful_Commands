@@ -1,5 +1,19 @@
 Downloading best quality audio/video formatted and named playlists:
+===========================================================================================================================================
+SINGLE VIDEO
+===========================================================================================================================================
+youtube-dl "VIDEO_LINK" -f "bestvideo+bestaudio/best" -o "%(uploader)s/%(title)s.%(ext)s"
+this results in format of "Author/Titlle.extension"
+===========================================================================================================================================
+PLAYLIST VIDEOS
+===========================================================================================================================================
+youtube-dl "PLAYLIST_LINK" -f "bestvideo+bestaudio/best" -o "%(uploader)s/%(playlist_index)02d-%(title)s.%(ext)s" --playlist-start 1 -c
+this results in format of "Author/01-Titlle.extension"
+===========================================================================================================================================
 
+
+MISC
+===========================================================================================================================================
 youtube-dl -o "%(playlist_index)s-%(title)s.%(ext)s" "PLAYLIST_LINK" -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' -c --playlist-start 1
-
-youtube-dl -o "%(playlist_index)s-%(title)s.%(ext)s" ""PLAYLIST_LINK" " -f 'bestvideo+bestaudio/best' --playlist-start 1 -c
+youtube-dl -o "%(playlist_index)s-%(title)s.%(ext)s" "PLAYLIST_LINK" -f 'bestvideo+bestaudio/best' --playlist-start 1 -c
+===========================================================================================================================================
