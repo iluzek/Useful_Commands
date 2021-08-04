@@ -1,4 +1,4 @@
-Downloading best quality audio/video formatted and named playlists:
+Downloading best quality audio/video format and named output for downloaded files:
 ===========================================================================================================================================
 SINGLE VIDEO
 ===========================================================================================================================================
